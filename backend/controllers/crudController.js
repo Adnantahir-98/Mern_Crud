@@ -7,6 +7,17 @@ const getTodos = async(req, res) => {
     res.status(200).json(getTodo)
 }
 
+const getSingleTodo = async(req, res) => {
+    const singleTodo = await Todos.findById(req.params.id)
+    if(!singleTodo){
+        res.status(400)
+        throw new Error('No Data Found')
+    }else{
+        res.status(200).json(singleTodo)
+    }
+
+}
+
 const postTodos = async(req, res) => {
     const {todo} = req.body
     const postTodo = await Todos.create({
@@ -42,4 +53,4 @@ const deleteTodo = async(req, res) => {
 }
 
 
-module.exports = {getTodos, postTodos, updateTodos, deleteTodo}
+module.exports = {getTodos, getSingleTodo, postTodos, updateTodos, deleteTodo}
